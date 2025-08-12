@@ -648,10 +648,465 @@
                         <button class="buy-now-btn" onclick="buyNow('two-seated-sofa')">Buy Now ➜</button>
                     </div>
                 </div>
-                <div class="product-card">
+                
+ 
+               <div class="product-card">
                     <div class="product-image">Modern Chair</div>
                     <button class="add-to-cart" onclick="addToCart('modern-chair-2', 'Modern Chair', 470)">🛒</button>
                     <div class="product-info">
                         <div class="product-name">Modern Chair</div>
                         <div class="product-price">Price - $470</div>
- 
+                        <button class="buy-now-btn" onclick="buyNow('modern-chair-2')">Buy Now ➜</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Furniture with a Future</h2>
+                <p>Every piece tells a story of quality, sustainability, and timeless design.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Free Delivery</h3>
+                    <p>Complimentary delivery on all orders over $500</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">↩️</div>
+                    <h3>90-Day Returns</h3>
+                    <p>Not satisfied? Return within 90 days for a full refund</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>2-Year Warranty</h3>
+                    <p>Comprehensive warranty on all furniture pieces</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💳</div>
+                    <h3>Easy Financing</h3>
+                    <p>Flexible payment options available</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" style="background: #f9f9f9;">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(0)">
+                    What materials do you use for your furniture?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We use premium materials including solid hardwood, high-grade steel, and eco-friendly finishes.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(1)">
+                    How do I know which size is right for my space?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    We provide detailed measurements and room planning guides for each product.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(2)">
+                    What is your furniture delivery schedule?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    Most items are delivered within 2-4 weeks. Custom pieces may take 6-8 weeks.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(3)">
+                    How do I contact customer support?
+                    <span>+</span>
+                </div>
+                <div class="faq-answer">
+                    You can reach our customer support team via phone, email, or live chat 24/7.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <p>Get the latest updates on new collections and exclusive offers.</p>
+                    <div class="social-links">
+                        <a href="#" onclick="alert('Connect with us on Facebook!')">f</a>
+                        <a href="#" onclick="alert('Follow us on Twitter!')">t</a>
+                        <a href="#" onclick="alert('Follow us on Instagram!')">📷</a>
+                        <a href="#" onclick="alert('Connect with us on LinkedIn!')">in</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="#furniture">Furniture</a>
+                    <a href="#collections">Collections</a>
+                    <a href="#about">About Us</a>
+                    <a href="#contact">Contact</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <a href="#support">Support Center</a>
+                    <a href="#returns">Returns & Exchanges</a>
+                    <a href="#shipping">Shipping Info</a>
+                    <a href="#warranty">Warranty</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Company</h3>
+                    <a href="#careers">Careers</a>
+                    <a href="#press">Press</a>
+                    <a href="#investors">Investors</a>
+                    <a href="#sustainability">Sustainability</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Modiva. All rights reserved. | Follow us on social media for the latest updates.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-close" onclick="toggleCart()">✕</button>
+        </div>
+        <div id="cartItems"></div>
+        <div class="cart-total">
+            <h4>Total: $<span id="cartTotal">0</span></h4>
+            <button class="btn-primary" style="width: 100%; margin-top: 1rem;" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let cartTotal = 0;
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            sidebar.classList.toggle('active');
+        }
+
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+            }
+            updateCartDisplay();
+        }
+
+        function removeFromCart(id) {
+            cart = cart.filter(item => item.id !== id);
+            updateCartDisplay();
+        }
+
+        function updateCartDisplay() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotalElement = document.getElementById('cartTotal');
+            
+            cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartTotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = cartTotal;
+            
+            cartItems.innerHTML = cart.map(item => `
+                <div class="cart-item">
+                    <div class="cart-item-image"></div>
+                    <div class="cart-item-info">
+                        <h4>${item.name}</h4>
+                        <p>$${item.price} x ${item.quantity}</p>
+                        <button onclick="removeFromCart('${item.id}')" style="background: #ff4444; color: white; border: none; padding: 0.5rem; border-radius: 3px; cursor: pointer;">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function buyNow(productId) {
+            alert(`Proceeding to checkout for ${productId}`);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            alert(`Checkout complete! Total: $${cartTotal}`);
+            cart = [];
+            updateCartDisplay();
+            toggleCart();
+        }
+
+        function toggleFAQ(index) {
+            const questions = document.querySelectorAll('.faq-question');
+            const answers = document.querySelectorAll('.faq-answer');
+            const question = questions[index];
+            const answer = answers[index];
+            const span = question.querySelector('span');
+            
+            // Close all other FAQs
+            answers.forEach((ans, i) => {
+                if (i !== index) {
+                    ans.classList.remove('active');
+                    questions[i].querySelector('span').textContent = '+';
+                }
+            });
+            
+            // Toggle current FAQ
+            answer.classList.toggle('active');
+            span.textContent = answer.classList.contains('active') ? '−' : '+';
+        }
+
+        // Smooth scrolling for navigation links
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Header background on scroll
+            window.addEventListener('scroll', function() {
+                const header = document.querySelector('.header');
+                if (window.scrollY > 100) {
+                    header.style.background = 'rgba(0, 0, 0, 0.95)';
+                    header.style.backdropFilter = 'blur(10px)';
+                } else {
+                    header.style.background = 'rgba(0, 0, 0, 0.9)';
+                    header.style.backdropFilter = 'none';
+                }
+            });
+
+            // Search functionality
+            document.querySelector('.search-icon').addEventListener('click', function() {
+                const searchTerm = prompt('What are you looking for?');
+                if (searchTerm) {
+                    alert(`Searching for: "${searchTerm}"\n\nSearch results would appear here in a real implementation.`);
+                    // Here you would implement actual search functionality
+                    // You could filter products, highlight matches, etc.
+                }
+            });
+
+            // User account functionality
+            document.querySelector('.user-icon').addEventListener('click', function() {
+                const action = confirm('Would you like to access your account?\nOK = Login | Cancel = Create Account');
+                if (action) {
+                    alert('Login functionality - This would open a login modal or redirect to login page');
+                } else {
+                    alert('Create account functionality - This would open a registration form');
+                }
+            });
+
+            // Login button functionality
+            document.querySelector('.login-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const email = prompt('Enter your email:');
+                if (email) {
+                    const password = prompt('Enter your password:');
+                    if (password) {
+                        alert(`Login attempt for: ${email}\nIn a real app, this would authenticate the user.`);
+                    }
+                }
+            });
+
+            // Sign up button functionality  
+            document.querySelector('.signup-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                const name = prompt('Enter your full name:');
+                if (name) {
+                    const email = prompt('Enter your email:');
+                    if (email) {
+                        alert(`Welcome ${name}!\nAccount creation for: ${email}\nIn a real app, this would create a new user account.`);
+                    }
+                }
+            });
+
+            // Product hover effects
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 15px 30px rgba(0,0,0,0.15)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0px)';
+                    this.style.boxShadow = '0 5px 15px rgba(0,0,0,0.1)';
+                });
+            });
+
+            // Gallery item interactions
+            document.querySelectorAll('.gallery-item').forEach((item, index) => {
+                item.addEventListener('click', function() {
+                    const title = this.querySelector('.gallery-overlay h3').textContent;
+                    const description = this.querySelector('.gallery-overlay p').textContent;
+                    alert(`🏡 ${title}\n\n${description}\n\nThis would open a detailed gallery or product collection page.`);
+                });
+
+                // Add subtle animation on load
+                setTimeout(() => {
+                    item.style.opacity = '1';
+                    item.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+
+            // Feature cards animation
+            document.querySelectorAll('.feature-card').forEach((card, index) => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.02)';
+                    this.style.boxShadow = '0 10px 25px rgba(0,0,0,0.1)';
+                    this.style.transition = 'all 0.3s ease';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+
+            // Social media links functionality
+            document.querySelectorAll('.social-links a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const platform = this.textContent === 'f' ? 'Facebook' : 
+                                   this.textContent === 't' ? 'Twitter' : 
+                                   this.textContent === '📷' ? 'Instagram' : 'LinkedIn';
+                    alert(`🌐 Connect with Modiva on ${platform}!\n\nThis would redirect to our official ${platform} page.`);
+                });
+            });
+
+            // Newsletter signup functionality
+            const footerSection = document.querySelector('.footer-section');
+            const newsletterBtn = document.createElement('button');
+            newsletterBtn.innerHTML = '📧 Subscribe to Newsletter';
+            newsletterBtn.className = 'btn-primary';
+            newsletterBtn.style.marginTop = '1rem';
+            newsletterBtn.style.padding = '0.8rem 1.5rem';
+            newsletterBtn.onclick = subscribeNewsletter;
+            footerSection.appendChild(newsletterBtn);
+
+            // Initialize cart display
+            updateCartDisplay();
+
+            // Welcome message
+            setTimeout(() => {
+                if (cart.length === 0) {
+                    console.log('🏠 Welcome to Modiva! Browse our latest furniture collection.');
+                    console.log('💡 Tip: Click on products to add them to your cart!');
+                }
+            }, 2000);
+
+            // Initialize gallery items with opacity 0 for animation
+            document.querySelectorAll('.gallery-item').forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'translateY(20px)';
+                item.style.transition = 'all 0.6s ease';
+            });
+        });
+
+        // Newsletter signup function
+        function subscribeNewsletter() {
+            const email = prompt('📧 Enter your email to subscribe to our newsletter and get exclusive offers:');
+            if (email && email.includes('@') && email.includes('.')) {
+                alert(`🎉 Thank you for subscribing!\n\nWelcome to the Modiva family! We'll send the latest furniture trends and exclusive offers to: ${email}`);
+            } else if (email) {
+                alert('❌ Please enter a valid email address (must include @ and .)');
+            }
+        }
+
+        // Enhanced cart functionality with local storage simulation
+        function updateQuantity(id, newQuantity) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                if (newQuantity <= 0) {
+                    removeFromCart(id);
+                } else {
+                    item.quantity = newQuantity;
+                    updateCartDisplay();
+                }
+            }
+        }
+
+        // Enhanced checkout function
+        function checkout() {
+            if (cart.length === 0) {
+                alert('🛒 Your cart is empty!\n\nBrowse our collection and add some beautiful furniture pieces.');
+                return;
+            }
+            
+            const itemsList = cart.map(item => `• ${item.name} x${item.quantity} - $${item.price * item.quantity}`).join('\n');
+            const confirmed = confirm(`🛍️ Order Summary:\n\n${itemsList}\n\nTotal: $${cartTotal}\n\nProceed to checkout?`);
+            
+            if (confirmed) {
+                alert(`✅ Order Confirmed!\n\nTotal: $${cartTotal}\nItems: ${cart.length}\n\nThank you for choosing Modiva! Your furniture will be delivered within 2-4 weeks.`);
+                cart = [];
+                updateCartDisplay();
+                toggleCart();
+            }
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Press 'C' to open cart
+            if (e.key === 'c' || e.key === 'C') {
+                if (!e.ctrlKey && !e.altKey) {
+                    toggleCart();
+                }
+            }
+            // Press 'S' to search
+            if (e.key === 's' || e.key === 'S') {
+                if (!e.ctrlKey && !e.altKey) {
+                    e.preventDefault();
+                    document.querySelector('.search-icon').click();
+                }
+            }
+            // Press Escape to close cart
+            if (e.key === 'Escape') {
+                const cartSidebar = document.getElementById('cartSidebar');
+                if (cartSidebar.classList.contains('active')) {
+                    toggleCart();
+                }
+            }
+        });
+
+        // Add some visual feedback for interactions
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#4CAF50' : '#f44336'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 5px;
+                z-index: 3000;
+                opacity: 0;
+            
