@@ -1109,4 +1109,51 @@
                 border-radius: 5px;
                 z-index: 3000;
                 opacity: 0;
+                transform: translateX(100%);
+                transition: all 0.3s ease;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.opacity = '1';
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Enhanced addToCart with notification
+        function addToCart(id, name, price) {
+            const existingItem = cart.find(item => item.id === id);
+            if (existingItem) {
+                existingItem.quantity += 1;
+                showNotification(`${name} quantity updated in cart!`);
+            } else {
+                cart.push({ id, name, price, quantity: 1 });
+                showNotification(`${name} added to cart!`);
+            }
+            updateCartDisplay();
+        }
+
+        // Enhanced removeFromCart with notification
+        function removeFromCart(id) {
+            const item = cart.find(item => item.id === id);
+            if (item) {
+                cart = cart.filter(item => item.id !== id);
+                showNotification(`${item.name} removed from cart!`, 'error');
+                updateCartDisplay();
+            }
+        }
+    </script>
+</body>
+</html>
             
